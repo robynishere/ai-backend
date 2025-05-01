@@ -10,7 +10,7 @@ const app = express();
 app.set('trust proxy', 1);  // Enable trust proxy to handle X-Forwarded-For header correctly
 
 // Ensure the app listens on the correct port in the Render environment
-const PORT = process.env.PORT || 10000;  // Render assigns a dynamic PORT, so we use that
+const PORT = process.env.PORT || 3001;  // Render assigns a dynamic PORT, so we use that
 
 // Apply rate limiting AFTER app is created
 const limiter = rateLimit({
@@ -53,7 +53,7 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-// Listen on the specified port (Render's PORT environment variable or 10000)
+// Listen on the specified port (Render's PORT environment variable or 3001)
 app.listen(PORT, '0.0.0.0', () => {  // Bind to 0.0.0.0 for external accessibility
   console.log(`✅ Server running at http://0.0.0.0:${PORT}`);
 });
