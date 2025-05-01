@@ -1,13 +1,5 @@
-const rateLimit = require('express-rate-limit');
-
-const limiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 5, // max 5 requests per minute per IP
-  message: 'Too many requests. Please slow down.',
-});
-
-app.use(limiter);
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const axios = require('axios');
 const cors = require('cors');
 require('dotenv').config();
@@ -15,6 +7,14 @@ require('dotenv').config();
 const app = express();
 const PORT = 3001;
 
+// Apply rate limiting AFTER app is created
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 5, // limit each IP to 5 requests per minute
+  message: 'Too many requests. Please slow down.',
+});
+
+app.use(limiter);
 app.use(cors());
 app.use(express.json());
 
