@@ -7,10 +7,10 @@ require('dotenv').config();
 const app = express();
 
 // Trust the proxy to handle the 'X-Forwarded-For' header properly
-app.set('trust proxy', 1);  // Enable trust proxy
+app.set('trust proxy', 1);  // Enable trust proxy to handle X-Forwarded-For header correctly
 
 // Ensure the app listens on the correct port in the Render environment
-const PORT = process.env.PORT || 3001;  // Use Render's PORT environment variable
+const PORT = process.env.PORT || 10000;  // Render assigns a dynamic PORT, so we use that
 
 // Apply rate limiting AFTER app is created
 const limiter = rateLimit({
