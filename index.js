@@ -5,7 +5,9 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3001;
+
+// Ensure the app listens on the correct port in the Render environment
+const PORT = process.env.PORT || 3001;  // Use Render's PORT environment variable
 
 // Apply rate limiting AFTER app is created
 const limiter = rateLimit({
@@ -23,7 +25,7 @@ app.post('/chat', async (req, res) => {
 
   try {
     const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
+      'https://api.openai.com/v1/chat/completions', // OpenAI API endpoint
       {
         model: 'gpt-3.5-turbo',
         messages: [
@@ -48,6 +50,7 @@ app.post('/chat', async (req, res) => {
   }
 });
 
+// Listen on the specified port (Render's PORT environment variable or 3001)
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
