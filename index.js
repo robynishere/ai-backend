@@ -6,6 +6,9 @@ require('dotenv').config();
 
 const app = express();
 
+// Trust the proxy to handle the 'X-Forwarded-For' header properly
+app.set('trust proxy', 1);  // Enable trust proxy
+
 // Ensure the app listens on the correct port in the Render environment
 const PORT = process.env.PORT || 3001;  // Use Render's PORT environment variable
 
@@ -50,7 +53,7 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-// Listen on the specified port (Render's PORT environment variable or 3001)
+// Listen on the specified port (Render's PORT environment variable or 10000)
 app.listen(PORT, '0.0.0.0', () => {  // Bind to 0.0.0.0 for external accessibility
-  console.log(`✅ Server running at http://localhost:${PORT}`);
+  console.log(`✅ Server running at http://0.0.0.0:${PORT}`);
 });
