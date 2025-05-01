@@ -51,6 +51,6 @@ app.post('/chat', async (req, res) => {
 });
 
 // Listen on the specified port (Render's PORT environment variable or 3001)
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {  // Bind to 0.0.0.0 for external accessibility
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
